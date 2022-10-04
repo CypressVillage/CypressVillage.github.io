@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>树莓派配置摄像头 | CypressVillage</title><meta name="keywords" content="raspberry"><meta name="author" content="CypressVillage"><meta name="copyright" content="CypressVillage"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="摄像头准备插入摄像头后检查摄像头1lsusb  查看设备文件1ls &#x2F;dev&#x2F;video*  使用fswebcam命令测试抓图12sudo apt-get install fswebcamfswebcam &#x2F;dev&#x2F;video0 ~&#x2F;image.jpg  在VNC界面查看摄像头效果我的树莓派没这条命令。。。 12sudo apt-get install luvcviewluvcview -s 10">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派配置摄像头">
+<meta property="og:url" content="http://example.com/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/index.html">
+<meta property="og:site_name" content="CypressVillage">
+<meta property="og:description" content="摄像头准备插入摄像头后检查摄像头1lsusb  查看设备文件1ls &#x2F;dev&#x2F;video*  使用fswebcam命令测试抓图12sudo apt-get install fswebcamfswebcam &#x2F;dev&#x2F;video0 ~&#x2F;image.jpg  在VNC界面查看摄像头效果我的树莓派没这条命令。。。 12sudo apt-get install luvcviewluvcview -s 10">
+<meta property="og:locale" content="zn_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg">
+<meta property="article:published_time" content="2022-10-02T04:43:53.000Z">
+<meta property="article:modified_time" content="2022-10-02T17:08:33.041Z">
+<meta property="article:author" content="CypressVillage">
+<meta property="article:tag" content="raspberry">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2022/07/30/DstBcIJYuPUZk7A.png"><link rel="canonical" href="http://example.com/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '树莓派配置摄像头',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-03 01:08:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/07/30/DstBcIJYuPUZk7A.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">CypressVillage</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">树莓派配置摄像头</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-10-02T04:43:53.000Z" title="Created 2022-10-02 12:43:53">2022-10-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-10-02T17:08:33.041Z" title="Updated 2022-10-03 01:08:33">2022-10-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/pi/">pi</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="树莓派配置摄像头"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="摄像头准备"><a href="#摄像头准备" class="headerlink" title="摄像头准备"></a>摄像头准备</h2><h3 id="插入摄像头后检查摄像头"><a href="#插入摄像头后检查摄像头" class="headerlink" title="插入摄像头后检查摄像头"></a>插入摄像头后检查摄像头</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsusb</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看设备文件"><a href="#查看设备文件" class="headerlink" title="查看设备文件"></a>查看设备文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /dev/video*</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用fswebcam命令测试抓图"><a href="#使用fswebcam命令测试抓图" class="headerlink" title="使用fswebcam命令测试抓图"></a>使用fswebcam命令测试抓图</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fswebcam</span><br><span class="line">fswebcam /dev/video0 ~/image.jpg</span><br></pre></td></tr></table></figure>
+
+<h3 id="在VNC界面查看摄像头效果"><a href="#在VNC界面查看摄像头效果" class="headerlink" title="在VNC界面查看摄像头效果"></a><del>在VNC界面查看摄像头效果</del></h3><p>我的树莓派没这条命令。。。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install luvcview</span><br><span class="line">luvcview -s 1080x720</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用motion"><a href="#使用motion" class="headerlink" title="使用motion"></a>使用motion</h2><p>我第一次装失败了所以加上了<code>--fix-missing</code>参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install motion --fix-missing</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装motion包"><a href="#安装motion包" class="headerlink" title="安装motion包"></a>安装motion包</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install motion</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开-motion-daemon-守护进程，让它可以一直在后台运行"><a href="#打开-motion-daemon-守护进程，让它可以一直在后台运行" class="headerlink" title="打开 motion daemon 守护进程，让它可以一直在后台运行"></a><del>打开 motion daemon 守护进程，让它可以一直在后台运行</del></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/<span class="keyword">default</span>/motion</span><br><span class="line">＃no修改成<span class="attr">yes</span>:</span><br><span class="line">start_motion_daemon=yes</span><br></pre></td></tr></table></figure>
+
+<p>由于我的这个位置是一个空文件，所以使用<code>systemd</code>来增加开机启动项</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> motion</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="修改motion的配置文件"><a href="#修改motion的配置文件" class="headerlink" title="修改motion的配置文件"></a>修改motion的配置文件</h3><p>注意配置文件修改后重启才会生效</p>
+<p><code>sudo nano /etc/motion/motion.conf</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#deamon off 改成 on 不行,使用systemd会有冲突</span><br><span class="line">deamon on</span><br><span class="line">#设置分辨率</span><br><span class="line">width <span class="number">800</span></span><br><span class="line">height <span class="number">600</span></span><br><span class="line">#关闭 localhost 的限制</span><br><span class="line">webcam_localhost off</span><br><span class="line">#最大帧率</span><br><span class="line">stream_maxrate <span class="number">70</span></span><br></pre></td></tr></table></figure>
+
+<p>还有一些配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line">选项Range/Values Default说明</span><br><span class="line"></span><br><span class="line">auto_brightnessValues: on,off</span><br><span class="line"></span><br><span class="line">Default: off让motion自动调节视频的的亮度，只适用于不带有自动亮度调节的摄像机</span><br><span class="line"></span><br><span class="line">brightnessValues: 0-255</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)调整摄像机的亮度</span><br><span class="line"></span><br><span class="line">saturationValues: 0 - 255</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)调整摄像机的颜色饱和度</span><br><span class="line"></span><br><span class="line">hueValues: 0 - 255</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)调整摄像机的色调</span><br><span class="line"></span><br><span class="line">contrastValues: 0-255</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)调整摄像机的对比度</span><br><span class="line"></span><br><span class="line">daemonValues: on,off</span><br><span class="line"></span><br><span class="line">Default: off以守护进程在后台运行。这个选项只能放在motion.conf，不能放在 thread config file</span><br><span class="line"></span><br><span class="line">emulate_motionValues: on, off</span><br><span class="line"></span><br><span class="line">Default: off即使没有运动物体也要保存图像</span><br><span class="line"></span><br><span class="line">ffmpeg_output_moviesValues: on, off Default: off是否保存视频</span><br><span class="line"></span><br><span class="line">ffmpeg_bpsValues: 0 - 9999999</span><br><span class="line"></span><br><span class="line">Default: 400000视频比特率</span><br><span class="line"></span><br><span class="line">ffmpeg_variable_bitrateValues: 0, 2 - 31</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)动态比特率，如果开启这个功能ffmpeg_bps将被忽略，0为关闭，2为最好质量，31为最差质量</span><br><span class="line"></span><br><span class="line">ffmpeg_duplicate_framesValues: on, off</span><br><span class="line"></span><br><span class="line">Default: on为了达到每秒的帧数要求，会复制一下帧填充空白时间，关掉这个功能后每个帧都紧接下一个帧，看起来像快进</span><br><span class="line"></span><br><span class="line">ffmpeg_output_debug_moviesValues: on, off</span><br><span class="line"></span><br><span class="line">Default: off调试模式，只看到变化的图像</span><br><span class="line"></span><br><span class="line">ffmpeg_video_codecValues: mpeg4, msmpeg4, swf, flv, ffv1, mov, ogg, mp4, mkv, hevc</span><br><span class="line"></span><br><span class="line">Default: mpeg4视频格式</span><br><span class="line"></span><br><span class="line">framerateValues: 2 - 100</span><br><span class="line"></span><br><span class="line">Default: 100 (no <span class="built_in">limit</span>)帧速率，每秒多少帧</span><br><span class="line"></span><br><span class="line">frequencyValues: 0 - 999999</span><br><span class="line"></span><br><span class="line">Default: 0 (Not <span class="built_in">set</span>)频率协调 Hz，（不清楚作用）</span><br><span class="line"></span><br><span class="line">lightswitchValues: 0 - 100</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)忽略光照强度改变引起的变化</span><br><span class="line"></span><br><span class="line">locate_motion_modeValues: on, off, preview</span><br><span class="line"></span><br><span class="line">Default: off给运动物体用方框标出</span><br><span class="line"></span><br><span class="line">locate_motion_styleValues: box, redbox, cross, redcross</span><br><span class="line"></span><br><span class="line">Default: box标记风格</span><br><span class="line"></span><br><span class="line">max_movie_timeValues: 0 (infinite) - 2147483647</span><br><span class="line"></span><br><span class="line">Default: 3600最大视频时间</span><br><span class="line"></span><br><span class="line">minimum_frame_timeValues: 0 - 2147483647</span><br><span class="line"></span><br><span class="line">Default: 0最小帧间隔，设置为0表示采用摄像头的帧率</span><br><span class="line"></span><br><span class="line">minimum_motion_framesValues: 1 - 1000s</span><br><span class="line"></span><br><span class="line">Default: 1捕捉持续至少指定时间的运动帧</span><br><span class="line"></span><br><span class="line">movie_filenameValues: Max 4095 characters</span><br><span class="line"></span><br><span class="line">Default: %v-%Y%m%d%H%M%S视频的文件名</span><br><span class="line"></span><br><span class="line">ffmpeg_timelapseValues: 0-2147483647</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)间隔时间，拍摄延时视频</span><br><span class="line"></span><br><span class="line">ffmpeg_timelapse_modeValues: hourly, daily, weekly-sunday, weekly-monday, monthly, manual</span><br><span class="line"></span><br><span class="line">Default: daily延时拍摄模式</span><br><span class="line"></span><br><span class="line">timelapse_filenameValues: Max 4095 characters</span><br><span class="line"></span><br><span class="line">Default: %v-%Y%m%d-timelapse延时拍摄的文件名</span><br><span class="line"></span><br><span class="line">output_picturesValues: on,off,first,best,center</span><br><span class="line"></span><br><span class="line">Default: on是否保存图片和模式设置</span><br><span class="line"></span><br><span class="line">output_debug_picturesValues: on,off</span><br><span class="line"></span><br><span class="line">Default: off图片调试模式，只输出运动物体</span><br><span class="line"></span><br><span class="line">picture_filenameValues: Max 4095 characters</span><br><span class="line"></span><br><span class="line">Default: %v-%Y%m%d%H%M%S-%q图片文件名</span><br><span class="line"></span><br><span class="line">picture_typeValues: jpeg,ppm</span><br><span class="line"></span><br><span class="line">Default: jpeg图片类型</span><br><span class="line"></span><br><span class="line">post_captureValues: 0 - 2147483647</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)运动在持续多少帧之后才被捕捉</span><br><span class="line"></span><br><span class="line">pre_captureValues: 0 - 100s</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)输出图像包括捕捉到运动的前几秒</span><br><span class="line"></span><br><span class="line">qualityValues: 1 - 100</span><br><span class="line"></span><br><span class="line">Default: 75jpg图像的质量</span><br><span class="line"></span><br><span class="line">quietValues: on, off</span><br><span class="line"></span><br><span class="line">Default: off安静模式，检测到运动不输出哔</span><br><span class="line"></span><br><span class="line">rotateValues: 0, 90, 180, 270</span><br><span class="line"></span><br><span class="line">Default: 0 (not rotated)旋转图像角度</span><br><span class="line"></span><br><span class="line">stream_auth_methodValues: 0,1,2</span><br><span class="line"></span><br><span class="line">Default: 0网页监控身份认证方法：0-无，1-基本，2-MD5</span><br><span class="line"></span><br><span class="line">stream_authenticationValues: username:password</span><br><span class="line"></span><br><span class="line">Default: Not defined网页监控用户名和密码</span><br><span class="line"></span><br><span class="line">stream_limitValues: 0 - 2147483647</span><br><span class="line"></span><br><span class="line">Default: 0 (unlimited)限制帧的数量</span><br><span class="line"></span><br><span class="line">stream_localhostValues: on, off</span><br><span class="line"></span><br><span class="line">Default: on是否只能本地访问网络摄像头</span><br><span class="line"></span><br><span class="line">stream_maxrateValues: 1 - 100</span><br><span class="line"></span><br><span class="line">Default: 1限制网络摄像头帧速率</span><br><span class="line"></span><br><span class="line">stream_portValues: 0 - 65535</span><br><span class="line"></span><br><span class="line">Default: 0 (disabled)网络摄像头端口</span><br><span class="line"></span><br><span class="line">stream_qualityValues: 1 - 100</span><br><span class="line"></span><br><span class="line">Default: 50网络摄像头传输质量</span><br><span class="line"></span><br><span class="line">switchfilterValues: on, off</span><br><span class="line"></span><br><span class="line">Default: off过滤器开关，过滤器用来区分真正的运动和噪声</span><br><span class="line"></span><br><span class="line">target_dirValues: Max 4095 characters</span><br><span class="line"></span><br><span class="line">Default: Not defined = current working directory视频和图片的保存路径</span><br><span class="line"></span><br><span class="line">videodeviceValues: Max 4095 characters</span><br><span class="line"></span><br><span class="line">Default: /dev/video0摄像头设备名</span><br><span class="line"></span><br><span class="line">heightValues: Device Dependent</span><br><span class="line"></span><br><span class="line">Default: 288图像高度，范围跟摄像机相关</span><br><span class="line"></span><br><span class="line">widthValues: Device Dependent</span><br><span class="line"></span><br><span class="line">Default: 352图像宽度，范围跟摄像机相关</span><br><span class="line"></span><br><span class="line">process_id_fileValues: Max 4095 characters</span><br><span class="line"></span><br><span class="line">Default: Not defined保存PID的文件，推荐/var/run/motion.pid</span><br><span class="line"></span><br><span class="line">database_busy_timeoutValues: 0 .. positive <span class="built_in">integer</span></span><br><span class="line"></span><br><span class="line">Default: 0数据库等待超时时间，毫秒</span><br><span class="line"></span><br><span class="line">作者：蝈胖胖</span><br><span class="line">链接：https://www.jianshu.com/p/0e66d9b6b87d</span><br><span class="line">来源：简书</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="运行-motion"><a href="#运行-motion" class="headerlink" title="运行 motion"></a>运行 motion</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># sudo motion</span><br><span class="line">systemctl start motion</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">CypressVillage</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/">http://example.com/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/raspberry/">raspberry</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"><img class="prev-cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">关于python以及anaconda环境安装</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/02/linux/kali/%E5%AE%89%E8%A3%85%E6%97%B6%E8%AE%B0%E5%BD%95/"><img class="next-cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">安装时记录</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/07/30/DstBcIJYuPUZk7A.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">CypressVillage</div><div class="author-info__description">互联网深深深处的小小小破站~</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/CypressVillage"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎来到小站！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%84%E5%83%8F%E5%A4%B4%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">摄像头准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%91%84%E5%83%8F%E5%A4%B4%E5%90%8E%E6%A3%80%E6%9F%A5%E6%91%84%E5%83%8F%E5%A4%B4"><span class="toc-number">1.1.</span> <span class="toc-text">插入摄像头后检查摄像头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">查看设备文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8fswebcam%E5%91%BD%E4%BB%A4%E6%B5%8B%E8%AF%95%E6%8A%93%E5%9B%BE"><span class="toc-number">1.3.</span> <span class="toc-text">使用fswebcam命令测试抓图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8VNC%E7%95%8C%E9%9D%A2%E6%9F%A5%E7%9C%8B%E6%91%84%E5%83%8F%E5%A4%B4%E6%95%88%E6%9E%9C"><span class="toc-number">1.4.</span> <span class="toc-text">在VNC界面查看摄像头效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8motion"><span class="toc-number">2.</span> <span class="toc-text">使用motion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85motion%E5%8C%85"><span class="toc-number">2.1.</span> <span class="toc-text">安装motion包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80-motion-daemon-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%EF%BC%8C%E8%AE%A9%E5%AE%83%E5%8F%AF%E4%BB%A5%E4%B8%80%E7%9B%B4%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C"><span class="toc-number">2.2.</span> <span class="toc-text">打开 motion daemon 守护进程，让它可以一直在后台运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9motion%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">修改motion的配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C-motion"><span class="toc-number">2.4.</span> <span class="toc-text">运行 motion</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="关于python以及anaconda环境安装"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于python以及anaconda环境安装"/></a><div class="content"><a class="title" href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="关于python以及anaconda环境安装">关于python以及anaconda环境安装</a><time datetime="2022-10-14T04:38:27.000Z" title="Created 2022-10-14 12:38:27">2022-10-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/" title="树莓派配置摄像头"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派配置摄像头"/></a><div class="content"><a class="title" href="/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/" title="树莓派配置摄像头">树莓派配置摄像头</a><time datetime="2022-10-02T04:43:53.000Z" title="Created 2022-10-02 12:43:53">2022-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/02/linux/kali/%E5%AE%89%E8%A3%85%E6%97%B6%E8%AE%B0%E5%BD%95/" title="安装时记录"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="安装时记录"/></a><div class="content"><a class="title" href="/2022/10/02/linux/kali/%E5%AE%89%E8%A3%85%E6%97%B6%E8%AE%B0%E5%BD%95/" title="安装时记录">安装时记录</a><time datetime="2022-10-02T03:24:51.000Z" title="Created 2022-10-02 11:24:51">2022-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/30/win/windows%E9%9A%8F%E8%AE%B0/" title="windows随记"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="windows随记"/></a><div class="content"><a class="title" href="/2022/09/30/win/windows%E9%9A%8F%E8%AE%B0/" title="windows随记">windows随记</a><time datetime="2022-09-30T10:04:01.000Z" title="Created 2022-09-30 18:04:01">2022-09-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/30/python/matplotlib%E5%BA%93/" title="matplotlib库"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="matplotlib库"/></a><div class="content"><a class="title" href="/2022/09/30/python/matplotlib%E5%BA%93/" title="matplotlib库">matplotlib库</a><time datetime="2022-09-30T08:57:06.000Z" title="Created 2022-09-30 16:57:06">2022-09-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By CypressVillage</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="7635407281" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-autoplay="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
