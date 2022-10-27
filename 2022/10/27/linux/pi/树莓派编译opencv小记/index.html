@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zn-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>树莓派编译opencv小记 | CypressVillage</title><meta name="keywords" content="python,pi,opencv,debian"><meta name="author" content="CypressVillage"><meta name="copyright" content="CypressVillage"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="感谢以下文章带给我的帮助！  子豪兄教你在树莓派上安装OpenCV - 知乎 (zhihu.com) 在 Linux 系统中编译安装 OpenCV - 知乎 (zhihu.com) 如何在Debian 10安装OpenCV | myfreax How to Install OpenCV on Debian 10 Linux | Linuxize  由于想准备一下电赛，熟悉opencv再加上最近写p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派编译opencv小记">
+<meta property="og:url" content="http://example.com/2022/10/27/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E8%AF%91opencv%E5%B0%8F%E8%AE%B0/index.html">
+<meta property="og:site_name" content="CypressVillage">
+<meta property="og:description" content="感谢以下文章带给我的帮助！  子豪兄教你在树莓派上安装OpenCV - 知乎 (zhihu.com) 在 Linux 系统中编译安装 OpenCV - 知乎 (zhihu.com) 如何在Debian 10安装OpenCV | myfreax How to Install OpenCV on Debian 10 Linux | Linuxize  由于想准备一下电赛，熟悉opencv再加上最近写p">
+<meta property="og:locale" content="zn_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg">
+<meta property="article:published_time" content="2022-10-27T03:10:57.000Z">
+<meta property="article:modified_time" content="2022-10-27T03:37:37.475Z">
+<meta property="article:author" content="CypressVillage">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pi">
+<meta property="article:tag" content="opencv">
+<meta property="article:tag" content="debian">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2022/07/30/DstBcIJYuPUZk7A.png"><link rel="canonical" href="http://example.com/2022/10/27/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E8%AF%91opencv%E5%B0%8F%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '树莓派编译opencv小记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-27 11:37:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/07/30/DstBcIJYuPUZk7A.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">CypressVillage</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">树莓派编译opencv小记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-10-27T03:10:57.000Z" title="Created 2022-10-27 11:10:57">2022-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-10-27T03:37:37.475Z" title="Updated 2022-10-27 11:37:37">2022-10-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/pi/">pi</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="树莓派编译opencv小记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>感谢以下文章带给我的帮助！</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46032511">子豪兄教你在树莓派上安装OpenCV - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/392751819">在 Linux 系统中编译安装 OpenCV - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.myfreax.com/how-to-install-opencv-on-debian-10/">如何在Debian 10安装OpenCV | myfreax</a></p>
+<p><a target="_blank" rel="noopener" href="https://linuxize.com/post/how-to-install-opencv-on-debian-10/">How to Install OpenCV on Debian 10 Linux | Linuxize</a></p>
+</blockquote>
+<p>由于想准备一下电赛，熟悉opencv再加上最近写pthon比较多，故本次的目标是：在树莓派上完成对python-OpenCV的支持</p>
+<p>本次安装环境为树莓派4B官方64位操作系统（可是显示的是Debian呀呀呀）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~ $ neofetch</span><br><span class="line">       _,met$$$$<span class="variable">$gg</span>.          pi@raspberrypi</span><br><span class="line">    ,g$$$$$$$$$$$$$$<span class="variable">$P</span>.       --------------</span><br><span class="line">  ,g$<span class="variable">$P</span><span class="string">&quot;     &quot;</span><span class="string">&quot;&quot;</span>Y$$.<span class="string">&quot;.        OS: Debian GNU/Linux 11 (bullseye) aarch64</span></span><br><span class="line"><span class="string"> ,$<span class="variable">$P</span>&#x27;              `$$$.     Host: Raspberry Pi 4 Model B Rev 1.5</span></span><br><span class="line"><span class="string">&#x27;,$<span class="variable">$P</span>       ,ggs.     `$<span class="variable">$b</span>:   Kernel: 5.15.61-v8+</span></span><br><span class="line"><span class="string">`d$$&#x27;     ,<span class="variable">$P</span>&quot;</span><span class="string">&#x27;   .    $$$    Uptime: 18 hours, 49 mins</span></span><br><span class="line"><span class="string"> $$P      d$&#x27;</span>     ,    $<span class="variable">$P</span>    Packages: 1525 (dpkg)</span><br><span class="line"> $$:      $$.   -    ,d$$<span class="string">&#x27;    Shell: bash 5.1.4</span></span><br><span class="line"><span class="string"> $$;      Y$b._   _,d$P&#x27;</span>      Terminal: /dev/pts/5</span><br><span class="line"> Y$$.    `.`<span class="string">&quot;Y$$$<span class="variable">$P</span>&quot;</span><span class="string">&#x27;         CPU: BCM2835 (4) @ 1.800GHz</span></span><br><span class="line"><span class="string"> `$$b      &quot;-.__              Memory: 881MiB / 7812MiB</span></span><br><span class="line"><span class="string">  `Y$$</span></span><br><span class="line"><span class="string">   `Y$$.</span></span><br><span class="line"><span class="string">     `$$b.</span></span><br><span class="line"><span class="string">       `Y$$b.</span></span><br><span class="line"><span class="string">          `&quot;Y$b._</span></span><br><span class="line"><span class="string">              `&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>python版本3.9.2</p>
+<h2 id="另一种方法：直接安装库"><a href="#另一种方法：直接安装库" class="headerlink" title="另一种方法：直接安装库"></a>另一种方法：直接安装库</h2><p>这种方法异常简单，直接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install python3-opencv</span><br></pre></td></tr></table></figure>
+
+<p>然鹅这种方法很快就被我抛弃了，因为这样安装的只是一个共享动态链接库，python函数的源码是没有的。这对于vscode的代码提示十分不友好。为了让我的vscode和记事本有一点区分度，我选择了编译</p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><ul>
+<li>联网的树莓派</li>
+<li>时间</li>
+</ul>
+<h2 id="树莓派分区扩展"><a href="#树莓派分区扩展" class="headerlink" title="树莓派分区扩展"></a>树莓派分区扩展</h2><p>这步的原因是SD卡空间不足</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo raspi-config</span><br></pre></td></tr></table></figure>
+
+<p>进入交互模式后，在<code>Advance Options</code>里选择<code>Expand FileSystem</code>，然后<code>reboot</code></p>
+<h2 id="前置依赖安装"><a href="#前置依赖安装" class="headerlink" title="前置依赖安装"></a>前置依赖安装</h2><ul>
+<li>python不必多说</li>
+<li>numpy opencv的图像数组基于numpy的ndarray</li>
+<li>build-essential 编译必备工具链</li>
+<li>cmake</li>
+<li>等等</li>
+</ul>
+<h2 id="编译文件夹环境搭建"><a href="#编译文件夹环境搭建" class="headerlink" title="编译文件夹环境搭建"></a>编译文件夹环境搭建</h2><p>为了不用改路径，建议绝对路径设置成一样的</p>
+<p>创建源代码文件夹，克隆git仓库到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/opencv_build &amp;&amp; <span class="built_in">cd</span> ~/opencv_build</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/opencv/opencv.git</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/opencv/opencv_contrib.git</span><br></pre></td></tr></table></figure>
+
+<p>进入opencv仓库，创建build文件夹（make命令在build文件夹下执行，防止make产生的文件污染仓库）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/opencv_build/opencv</span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br></pre></td></tr></table></figure>
+
+<p>make，这里有很多选项，我的最终版本如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi:~/opencv_build/opencv/build $ </span><br><span class="line">cmake -D CMAKE_VERBOSE_MAKEFILE=ON -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D OPENCV_GENERATE_PKGCONFIG=ON -D OPENCV_EXTRA_MODULES_PATH=~/opencv_build/opencv_contrib/modules -D BUILD_EXAMPLES=ON -D BUILD_SHARED_LIBS=ON -D OPENCV_ENABLE_NONFREE=ON -D ENABLE_CXX11=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D OPENCV_GENERATE_PKGCONFIG=ON -D BUILD_opencv_python3=ON -D PYTHON3_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.9.so -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/lib/python3/dist-packages/numpy/core/include -D PYTHON3_PACKAGES_PATH=/usr/lib/python3/dist-packages ..</span><br></pre></td></tr></table></figure>
+
+<p>生成，<code>-j</code>参数是调用几个cpu核心，具体可以通过命令<code>nproc</code>查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j4</span><br></pre></td></tr></table></figure>
+
+<p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<p>于是乎就完成了，出乎意料的有些顺利。。。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">CypressVillage</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/10/27/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E8%AF%91opencv%E5%B0%8F%E8%AE%B0/">http://example.com/2022/10/27/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E8%AF%91opencv%E5%B0%8F%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a><a class="post-meta__tags" href="/tags/pi/">pi</a><a class="post-meta__tags" href="/tags/opencv/">opencv</a><a class="post-meta__tags" href="/tags/debian/">debian</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/"><img class="next-cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">关于python以及anaconda环境安装</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2022/09/16/manim/MSYS2%E9%85%8D%E7%BD%AEmanim%E7%8E%AF%E5%A2%83/" title="MSYS2配置manim环境"><img class="cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-16</div><div class="title">MSYS2配置manim环境</div></div></a></div><div><a href="/2022/09/15/python/python%E4%B9%8B%E5%88%97%E8%A1%A8/" title="python之列表"><img class="cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-15</div><div class="title">python之列表</div></div></a></div><div><a href="/2022/09/30/python/matplotlib%E5%BA%93/" title="matplotlib库"><img class="cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-30</div><div class="title">matplotlib库</div></div></a></div><div><a href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="关于python以及anaconda环境安装"><img class="cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-14</div><div class="title">关于python以及anaconda环境安装</div></div></a></div><div><a href="/2022/09/15/python/%E5%89%8D%E8%A8%80/" title="python前言"><img class="cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-15</div><div class="title">python前言</div></div></a></div><div><a href="/2022/09/15/python/%E5%B8%B8%E7%94%A8%E5%8C%85%E5%8F%8A%E5%87%BD%E6%95%B0/" title="python常用包及函数"><img class="cover" src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-09-15</div><div class="title">python常用包及函数</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/07/30/DstBcIJYuPUZk7A.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">CypressVillage</div><div class="author-info__description">互联网深深深处的小小小破站~</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/CypressVillage"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎来到小站！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%85%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">另一种方法：直接安装库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">前置条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%E8%8E%93%E6%B4%BE%E5%88%86%E5%8C%BA%E6%89%A9%E5%B1%95"><span class="toc-number">3.</span> <span class="toc-text">树莓派分区扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">前置依赖安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%96%87%E4%BB%B6%E5%A4%B9%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">5.</span> <span class="toc-text">编译文件夹环境搭建</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/27/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E8%AF%91opencv%E5%B0%8F%E8%AE%B0/" title="树莓派编译opencv小记"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派编译opencv小记"/></a><div class="content"><a class="title" href="/2022/10/27/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BC%96%E8%AF%91opencv%E5%B0%8F%E8%AE%B0/" title="树莓派编译opencv小记">树莓派编译opencv小记</a><time datetime="2022-10-27T03:10:57.000Z" title="Created 2022-10-27 11:10:57">2022-10-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="关于python以及anaconda环境安装"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于python以及anaconda环境安装"/></a><div class="content"><a class="title" href="/2022/10/14/python/%E5%85%B3%E4%BA%8Epython%E4%BB%A5%E5%8F%8Aanaconda%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" title="关于python以及anaconda环境安装">关于python以及anaconda环境安装</a><time datetime="2022-10-14T04:38:27.000Z" title="Created 2022-10-14 12:38:27">2022-10-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/" title="树莓派配置摄像头"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树莓派配置摄像头"/></a><div class="content"><a class="title" href="/2022/10/02/linux/pi/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%91%84%E5%83%8F%E5%A4%B4/" title="树莓派配置摄像头">树莓派配置摄像头</a><time datetime="2022-10-02T04:43:53.000Z" title="Created 2022-10-02 12:43:53">2022-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/02/linux/kali/%E5%AE%89%E8%A3%85%E6%97%B6%E8%AE%B0%E5%BD%95/" title="安装时记录"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="安装时记录"/></a><div class="content"><a class="title" href="/2022/10/02/linux/kali/%E5%AE%89%E8%A3%85%E6%97%B6%E8%AE%B0%E5%BD%95/" title="安装时记录">安装时记录</a><time datetime="2022-10-02T03:24:51.000Z" title="Created 2022-10-02 11:24:51">2022-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/30/win/windows%E9%9A%8F%E8%AE%B0/" title="windows随记"><img src="https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="windows随记"/></a><div class="content"><a class="title" href="/2022/09/30/win/windows%E9%9A%8F%E8%AE%B0/" title="windows随记">windows随记</a><time datetime="2022-09-30T10:04:01.000Z" title="Created 2022-09-30 18:04:01">2022-09-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/07/30/CQfM83U9LVaHj6s.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By CypressVillage</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="7635407281" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-autoplay="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
